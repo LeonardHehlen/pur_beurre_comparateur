@@ -22,23 +22,28 @@
                 <button type="submit" class="btn btn-primary" style="margin-top: 20px; ">Rechercher</button>
             </form>
         </div>
+        {% if result in results: %}
+            <h1>Résultats ...</h1>
+        {% endif %}
         <div class="card-columns">
+            {% for result in results: %}
             <div class="card" style="width: 18rem; margin-bottom: 25px;" >
-                <img src="#" class="card-img-top" style="height: 300px;" alt="...">
+                <img src="{{result['image_url']}}" class="card-img-top" style="height: 300px;" alt="...">
                 <div class="card-body">
-                <h5 class="card-title">name product</h5>
-                <p class="card-text">generic name</p>
+                <h5 class="card-title">{{result['product_name_fr']}}</h5>
+                <p class="card-text">{{result['generic_name']}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item">Score Nutritionnel : </strong></li>
-                <li class="list-group-item">Localisation : </li>
-                <li class="list-group-item">Labels : </li>
+                <li class="list-group-item">Score Nutritionnel : <strong>{{result['nutrition_grades'].capitalize()}}</strong></li>
+                <li class="list-group-item">Localisation : {{result['stores'].capitalize()}}</li>
+                <li class="list-group-item">Labels : {{result['labels']}}</li>
                 </ul>
                 <div class="card-body">
-                <a href="#" class="card-link">Lien OpenFoodFacts</a>
-                <a href="#" class="card-link">SAVE</a>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 
