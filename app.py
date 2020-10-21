@@ -29,7 +29,7 @@ def main():
         for category in item.json()['product']['categories_hierarchy']:
             categories.append(category)
 
-        search_url = 'https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=1000&tagtype_0=categories&tag_contains_0=contains&tag_0=' + str(categories[0] + '&json=true')
+        search_url = 'https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=20&tagtype_0=categories&tag_contains_0=contains&tag_0=' + str(categories[0] + '&json=true')
 
         search_products = requests.get(search_url)
 
