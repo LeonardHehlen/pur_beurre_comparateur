@@ -25,6 +25,10 @@ h1 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.search-area {
+.search-stuff {
     margin-bottom: 20%;
+}
+
+.user-product {
+    float: right;
 }

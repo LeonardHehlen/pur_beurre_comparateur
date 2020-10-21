@@ -7,14 +7,13 @@ app = Flask(__name__)
 @app.route('/', methods = ['POST', 'GET'])
 def main():
     results = []
+    user_product = []
     if request.method == 'POST':
         barcode = request.form['code']
 
-        item = requests.get("https://fr.openfoodfacts.org//api/v0/produit/" + barcode)
-
-        nutriscore = str(item.json()['product']['nutrition_grade_fr'])
-
-        generic_name = str(item.json()['product']['generic_name'])
+        user_product = requests.get("https://fr.openfoodfacts.org//api/v0/produit/" + barcode)
+        nutriscore = str(user_product.json()['product']['nutrition_grade_fr'])
+        generic_name = str(user_product.json()['product']['generic_name'])
         print(generic_name, ' , ' ,nutriscore.capitalize())
 
         categories = []
@@ -26,10 +25,10 @@ def main():
                 nutriscore = i
 
 
-        for category in item.json()['product']['categories_hierarchy']:
+        for category in user_product.json()['product']['categories_hierarchy']:
             categories.append(category)
 
-        search_url = 'https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=20&tagtype_0=categories&tag_contains_0=contains&tag_0=' + str(categories[0] + '&json=true')
+        search_url = 'https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=100&tagtype_0=categories&tag_contains_0=contains&tag_0=' + str(categories[0] + '&json=true')
 
         search_products = requests.get(search_url)
 
@@ -66,7 +65,7 @@ def main():
             except:
                 print("Element erroné")
 
-    return render_template('index.html', results=results)
+    return render_template('index.html', results=results, user_product=user_product)
 
 if __name__ == '__main__':
    app.run(debug=True)

@@ -7,30 +7,48 @@
     <title>PUR BEURRE - COMPARATEUR</title>
 </head>
 <body>
-    <div class="container" style="margin-top: 6%;">
+    <div class="container" style="margin-top: 6%; width: 100%;">
+            <div class="search-stuff" style="max-width: 1000px;">
+                <h1 style="margin-bottom: 0%;">COMPARATEUR PUR BEURRE</h1>
+                <p style="margin-bottom: 10%;">Tapez le code barre d'un produit alimentaire pour rechercher un substitut avec un meilleur score nutritionnel</p>
 
-        <h1 style="margin-bottom: 0%;">COMPARATEUR PUR BEURRE</h1>
-        <p style="margin-bottom: 10%;">Tapez le code barre d'un produit alimentaire pour rechercher un substitut avec un meilleur score nutritionnel</p>
-        
-        <div name="search card" class="search-area">
-            <button type="button" class="btn btn-outline-primary" style="float: right; margin-bottom: 15px;">MES PRODUITS</button>
-            <form action="" method="POST">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">CODE PRODUIT</span>
-                    </div>
-                    <input type="text" aria-label="First name" class="form-control" name="code">
+                <div name="search card" class="search-area">
+                    <button type="button" class="btn btn-outline-primary" style="float: right; margin-bottom: 15px;">MES PRODUITS</button>
+                    <form action="" method="POST">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">CODE PRODUIT</span>
+                            </div>
+                            <input type="text" aria-label="First name" class="form-control" name="code">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 20px; ">Rechercher</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 20px; ">Rechercher</button>
-            </form>
-        </div>
-        {% if result in results: %}
-            <h1>Résultats ...</h1>
-        {% endif %}
+                {% if user_product:%}
+                <div class="user-product">
+                    <div class="card" style="margin-bottom: 25px; max-width: 250px;" >
+                        <h5 class="card-title" style="margin: auto; padding: 2px; color: red;">Votre produit</h5>
+                        <img src="{{user_product.json()['product']['image_url']}}" class="card-img-top" style=" padding: 3px; width: 100%; max-width: 100px; height: auto; margin: auto;" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{user_product.json()['product']['product_name_fr']}}</h5>
+                        <p class="card-text">{{user_product.json()['product']['generic_name']}}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Score Nutritionnel : <strong>{{user_product.json()['product']['nutrition_grades'].capitalize()}}</strong></li>
+                        <li class="list-group-item">Localisation : {{user_product.json()['product']['stores'].capitalize()}}</li>
+                        <li class="list-group-item">Labels : {{user_product.json()['product']['labels']}}</li>
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% if result: %}
+                <h1>Produits similaires:</h1>
+            {% endif %}
         <div class="card-columns">
             {% for result in results: %}
-            <div class="card" style="width: 18rem; margin-bottom: 25px;" >
-                <img src="{{result['image_url']}}" class="card-img-top" style="height: 300px;" alt="...">
+            <div class="card" style="margin-bottom: 25px; max-width: 250px;" >
+                <img src="{{result['image_url']}}" class="card-img-top" style=" padding: 3px; width: 100%; max-width: 100px; height: auto; text-align: center;" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">{{result['product_name_fr']}}</h5>
                 <p class="card-text">{{result['generic_name']}}</p>
