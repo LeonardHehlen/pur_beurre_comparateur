@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request
+from alphabet import ALPHABET
 import requests
 
 app = Flask(__name__)
