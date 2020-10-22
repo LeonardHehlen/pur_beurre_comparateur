@@ -61,7 +61,7 @@ def main():
                     product_nutriscore = i
 
             if product_nutriscore <= nutriscore:
-                if product_nutriscore is not 4:
+                if product_nutriscore != 4:
                     if name != '':
                         results.append(product)
 
