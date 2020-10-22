@@ -62,7 +62,7 @@ def main():
 
             if product_nutriscore <= nutriscore:
                 if product_nutriscore is not 4:
-                    if name =! '':
+                    if name != '':
                         results.append(product)
 
         for result in results:
