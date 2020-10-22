@@ -24,6 +24,11 @@
                         <button type="submit" class="btn btn-primary" style="margin-top: 20px; ">Rechercher</button>
                     </form>
                 </div>
+
+                {% if error %}
+                <h2>{{ error }}</h2>
+                {% endif %}
+
                 {% if user_product:%}
                 <div class="user-product">
                     <div class="card" style="margin-bottom: 25px; max-width: 250px;" >
