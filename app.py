@@ -9,6 +9,7 @@ def main():
     results = []
     user_product = []
     error = None
+    
     if request.method == 'POST':
         barcode = request.form['code']
 
@@ -19,7 +20,8 @@ def main():
         except:
             results = []
             user_product = []
-            return render_template('index.html', results=results, user_product=user_product, error='Produit Introuvable')
+            error = 'Produit Introuvable'
+            return render_template('index.html', results=results, user_product=user_product, error=error)
 
         generic_name = str(user_product.json()['product']['generic_name'])
         print(generic_name, ' , ' ,nutriscore.capitalize())
@@ -71,7 +73,7 @@ def main():
             except:
                 print("Element erroné")
 
-    return render_template('index.html', results=results, user_product=user_product)
+    return render_template('index.html', results=results, user_product=user_product, error=error)
 
 if __name__ == '__main__':
    app.run(debug=True)
