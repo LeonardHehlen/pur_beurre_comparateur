@@ -19,7 +19,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text">CODE PRODUIT</span>
                             </div>
-                            <input type="text" aria-label="First name" class="form-control" name="code">
+                            <input type="text" aria-label="First name" class="form-control" name="barcode">
                         </div>
                         <button type="submit" class="btn btn-primary" style="margin-top: 20px; ">Rechercher</button>
                     </form>
@@ -33,22 +33,22 @@
                 <div class="user-product">
                     <div class="card" style="margin-bottom: 25px; max-width: 250px;" >
                         <h5 class="card-title" style="margin: auto; padding: 2px; color: red;">Votre produit</h5>
-                        <img src="{{user_product.json()['product']['image_url']}}" class="card-img-top" style=" padding: 3px; width: 100%; max-width: 100px; height: auto; margin: auto;" alt="...">
+                        <img src="{{user_product['image_url']}}" class="card-img-top" style=" padding: 3px; width: 100%; max-width: 100px; height: auto; margin: auto;" alt="...">
                         <div class="card-body">
-                        <h5 class="card-title">{{user_product.json()['product']['product_name_fr']}}</h5>
-                        <p class="card-text">{{user_product.json()['product']['generic_name']}}</p>
+                        <h5 class="card-title">{{user_product['product_name_fr']}}</h5>
+                        <p class="card-text">{{user_product['generic_name']}}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Score Nutritionnel : <strong>{{user_product.json()['product']['nutrition_grades'].capitalize()}}</strong></li>
-                        <li class="list-group-item">Localisation : {{user_product.json()['product']['stores'].capitalize()}}</li>
-                        <li class="list-group-item">Labels : {{user_product.json()['product']['labels']}}</li>
+                        <li class="list-group-item">Score Nutritionnel : <strong>{{user_product['nutriscore'].capitalize()}}</strong></li>
+                        <li class="list-group-item">Localisation : {{user_product['stores'].capitalize()}}</li>
+                        <li class="list-group-item">Labels : {{user_product['labels']}}</li>
                         </ul>
                     </div>
                 </div>
                 {% endif %}
             </div>
             {% if result: %}
-                <h1>Produits similaires:</h1>
+                <h1>Produits Similaires:</h1>
             {% endif %}
         <div class="card-columns">
             {% for result in results: %}
@@ -59,7 +59,7 @@
                 <p class="card-text">{{result['generic_name']}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item">Score Nutritionnel : <strong>{{result['nutrition_grades'].capitalize()}}</strong></li>
+                <li class="list-group-item">Score Nutritionnel : <strong>{{result['nutriscore'].capitalize()}}</strong></li>
                 <li class="list-group-item">Localisation : {{result['stores'].capitalize()}}</li>
                 <li class="list-group-item">Labels : {{result['labels']}}</li>
                 </ul>

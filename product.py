@@ -31,7 +31,7 @@ class Product:
         barcode inputed is wrong.
         """
         try:
-            test.user_product.json()['product']
+            self.user_product.json()['product']
             return True
         except:
             return False
@@ -120,7 +120,12 @@ class Product:
                 final_results.append(
                     {
                         'name' : result['product_name_fr'],
-                        'nutriscore' : result['nutrition_grade_fr']
+                        'nutriscore' : result['nutrition_grade_fr'],
+                        'generic_name' : result['generic_name'],
+                        'image_url' : result['image_url'],
+                        'labels' : result['labels'],
+                        'stores' : result['stores'],
+                        'categories' : result['categories']
                     }
                 )
                     

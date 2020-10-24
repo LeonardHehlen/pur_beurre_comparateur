@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request
+from product import Product
 from alphabet import ALPHABET
 import requests
 
@@ -13,6 +14,17 @@ def main():
     If a barcode has been send, we send it out to the Product object, and call it's different method to get datas.
     For more informations on what datas are sent, type help(Product).
     """
+    error = ''
+
+    if request.method == 'POST':
+        barcode = request.form['barcode']
+        user_product = Product(barcode)
+        if user_product.api_response() == True:
+            user_product.get()
+            return render_template('index.html', user_product=user_product.get(), results=user_product.fetch_similar_better_product())
+        else:
+            error = 'Produit Introuvable'
+            return render_template('index.html', error=error)
 
     return render_template('index.html')
 
