@@ -1,4 +1,5 @@
 import requests
+from alphabet import ALPHABET
 
 class Product:
     """
@@ -14,6 +15,7 @@ class Product:
         self.user_product = requests.get("https://fr.openfoodfacts.org//api/v0/produit/" + self.barcode)
 
         self.nutriscore = ''
+        self.nutriscore_in_number = 0
         self.name = ''
         self.generic_name = ''
         self.categories = []
@@ -68,11 +70,62 @@ class Product:
                 return False
         else:
             return False
+    
+    def fetch_similar_better_product(self):
+        """
+        Returns a dict of Products with similar categories and better Nutriscore.
+        First it requests all items with the same Major Category in common in the categories hierarchy.
+        Then it filters out everything that doesn't have in common the 2 last categories in the categories hierarchy.
+        So now the level of relevance by category is at it's best.
+        Then, it converts the letter of the nutriscore into it's index number in the alphabet, and only add to our final result 
+        the ones that are equal or less than the product nutriscore.
+        And finally, returns a list containing a dict for every product left, with the keys : 'nutriscore', 'generic_name',
+        'image_url', 'name', 'labels', 'stores' and 'categories'.
+        """
+        correct_categories_results = []
+        best_nutriscore_results = []
+        final_results = []
+        search_url = 'https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=100&tagtype_0=categories&tag_contains_0=contains&tag_0=' + str(self.categories[0] + '&json=true')
+        search_results = requests.get(search_url).json()['products']
 
-test = Product('helloworld')
+        def convert_letter_to_number(letter_to_convert):
+            """
+            Convert a letter to it's index number in the alphabet.
+            """
+            letter_to_convert = letter_to_convert.casefold()
+            number = False
 
-if test.get():
-    print('do your thing')
+            for i, letter in enumerate(ALPHABET):
+                if letter == letter_to_convert:
+                    number = i
+                    return number
 
-else:
-    print("No response from API")
+        for search_result in search_results:
+            search_result_categories = search_result['categories_hierarchy']
+            if search_result_categories[search_result_categories.__len__()-2] == self.categories[self.categories.__len__()-2]:
+                correct_categories_results.append(search_result)
+    
+        self.nutriscore_in_number = convert_letter_to_number(str(self.nutriscore))
+
+        for result in correct_categories_results:
+            result_nutriscore_in_number = convert_letter_to_number(str(result['nutrition_grade_fr']))
+
+            if result_nutriscore_in_number < self.nutriscore_in_number:
+                best_nutriscore_results.append(result)
+
+        for result in best_nutriscore_results:
+            final_results.append(
+                {
+                    'name' : result['product_name_fr'],
+                    'nutriscore' : result['nutrition_grade_fr']
+                }
+            )
+                
+        return final_results
+
+test = Product('3017620422003')
+test.api_response()
+test.get()
+results = test.fetch_similar_better_product()
+
+print(results)
