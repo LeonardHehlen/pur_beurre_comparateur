@@ -128,7 +128,7 @@ class Product:
                         'categories' : result['categories']
                     }
                 )
-                    
+
             return final_results
         else:
             return False
