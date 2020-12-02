@@ -5,8 +5,11 @@
 ### SETUP
 
 > Download and unzip this repository.
+
 > Create a venv and activate it. (if you're on mac, juste activate the venv in the folder.)
+
 > Then in the terminal type : pip3 install -r requirements.txt
+
 > To launch the app, in the terminal type : python3 app.py
 
 > You can go to the url outputed in the terminal at start, it's your local host IP.
