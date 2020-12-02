@@ -91,34 +91,36 @@ def save_in_db():
                     c = 1
             if c == 0:
                 errors.append('Ce produit est déjà sauvegardé')
-            #errors.append('Ce produit est déjà sauvegardé')
             print("except : ", errors)
-            #print("Produt already in database.")
 
     return redirect(url_for('main'))
 
 @app.route('/mesproduits')
 def my_products():
+    """
+    This is the my products route, that displays the searched product and the alternative saved.
+    """
     products = User_product.query.all()
     return render_template('my_products.html', products=products)
 
 @app.route('/delete_from_db', methods = ['POST', 'GET'])
 def delete_from_db():
-
+    """
+    Here we request the product that the user wants to delete and its alternative and we delete it from the db.
+    """
     if request.method == 'POST':
         products = request.form['products']
         products = ast.literal_eval(products)
-        print(products)
         user_product = User_product.query.filter_by(id=products['user_product']).first()
         searched_product = Searched_product.query.filter_by(id=products['searched_product']).first()
         db.session.delete(user_product)
         db.session.delete(searched_product)
         db.session.commit()
-        #print(products)
-        #print(products['user_product'])
 
     return redirect(url_for('my_products'))
   
+
+
 # Function to display hostname and 
 # IP address 
 def get_Host_name_IP(): 

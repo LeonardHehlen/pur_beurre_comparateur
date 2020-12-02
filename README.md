@@ -4,12 +4,16 @@
 
 ### SETUP
 
-> Define how to setup the app.
+> Download and unzip this repository.
+> Create a venv and activate it. (if you're on mac, juste activate the venv in the folder.)
+> Then in the terminal type : pip3 install -r requirements.txt
+> To launch the app, in the terminal type : python3 app.py
 
+> You can go to the url outputed in the terminal at start, it's your local host IP.
 
 ### SEARCH FOR AN ALTERNATIVE
 
-> Once you are on the Pur Beurre Comparateur index page, enter the bar code in the adequate inpute and press the "Validate" button. 
+> Once you are on the Pur Beurre Comparateur index page, enter the bar code in the main input and press the "Validate" button. 
 The page will refresh and you'll see alternate items that have either the same nutrition rate or better.
 Each item has a "save" button, that allows for you to have it registered in your personnal database.
 
