@@ -11,9 +11,13 @@
             <div class="search-stuff" style="max-width: 1000px;">
                 <h1 style="margin-bottom: 0%;">COMPARATEUR PUR BEURRE</h1>
                 <p style="margin-bottom: 10%;">Tapez le code barre d'un produit alimentaire pour rechercher un substitut avec un meilleur score nutritionnel</p>
+                
+                {% for error in errors: %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endfor %}
 
                 <div name="search card" class="search-area">
-                    <button type="button" class="btn btn-outline-primary" style="float: right; margin-bottom: 15px;">MES PRODUITS</button>
+                    <button type="button" class="btn btn-outline-primary" style="float: right; margin-bottom: 15px;"><a href="{{url_for('my_products')}}">MES PRODUITS</a></button>
                     <form action="" method="POST">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -21,13 +25,9 @@
                             </div>
                             <input type="text" aria-label="First name" class="form-control" name="barcode">
                         </div>
-                        <button type="submit" class="btn btn-primary" style="margin-top: 20px; ">Rechercher</button>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Rechercher</button>
                     </form>
                 </div>
-
-                {% if error %}
-                <h2>{{ error }}</h2>
-                {% endif %}
 
                 {% if user_product:%}
                 <div class="user-product">

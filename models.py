@@ -29,3 +29,4 @@ class Searched_product(db.Model):
     categories = db.Column(db.String(3000), unique=False, nullable=False)
 
     user_product_id = Column(Integer, ForeignKey('user_product.id'))
+
