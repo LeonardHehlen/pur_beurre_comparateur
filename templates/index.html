@@ -64,7 +64,6 @@
                 <li class="list-group-item">Labels : {{result['labels']}}</li>
                 </ul>
                 <div class="card-body">
-                <a href="" class="card-link">Lien Produit</a>
                 <form action="{{ url_for('save_in_db') }}" method="POST">
                     <input type="text" value="{{ {'user_product' : user_product, 'searched_product' : result} }}" style="display: none;" name="products">
                     <button type="submit" class="btn btn-primary">SAUVEGARDER</button>
