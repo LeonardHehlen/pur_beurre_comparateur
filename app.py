@@ -20,8 +20,7 @@ def main():
     If a Post method is used on the template, it requests the input value of the form.
     If a barcode has been sent, we use it as a parameter of the Product object, and call its different method to get datas.
     For more informations on what datas are sent, type help(Product).
-    """ 
-    print("after : ", errors)
+    """
 
     if request.method == 'POST':
         barcode = request.form['barcode']
@@ -91,7 +90,6 @@ def save_in_db():
                     c = 1
             if c == 0:
                 errors.append('Ce produit est déjà sauvegardé')
-            print("except : ", errors)
 
     return redirect(url_for('main'))
 

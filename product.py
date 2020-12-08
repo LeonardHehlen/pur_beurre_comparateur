@@ -30,11 +30,19 @@ class Product:
         the non-existing ['product'] key has a 404. In this case, if this methods returns False, consider that the
         barcode inputed is wrong.
         """
-        try:
-            self.user_product.json()['product']
-            return True
-        except:
-            return False
+        if self.barcode:
+            try:
+                self.user_product.json()['product']
+                return True
+            except:
+                return False
+        elif self.barcode is str:
+            raise KeyError("Empty string")
+        elif self.barcode is int:
+            raise TypeError("Only String barcode")
+        else:
+            raise Exception("Unknown Error")
+        
 
     def get(self):
         """
@@ -109,7 +117,6 @@ class Product:
                     correct_categories_results.append(search_result)
         
             self.nutriscore_in_number = convert_letter_to_number(str(self.nutriscore))
-
             for result in correct_categories_results:
                 result_nutriscore_in_number = convert_letter_to_number(str(result['nutrition_grade_fr']))
 
